@@ -45,7 +45,7 @@ export const getAgendamentos = async (): Promise<Agendamento[]> => {
     LEFT JOIN servicos     s ON a.servico_id       = s.id;
   `);
   const rows = results[0].rows;
-  const list: Agendamento[] = [];  
+  const list: Agendamento[] = [];
   for (let i = 0; i < rows.length; i++) list.push(rows.item(i));
   return list;
 };
@@ -65,10 +65,10 @@ const deleteAgendamento = async (
 export default function ListaAgendamentosScreen({ navigation }: Props) {
   const [agendamentos, setAgendamentos] = useState<Agendamento[]>([]);
   const [profissionais, setProfissionais] = useState<Profissional[]>([]);
-  const [filtroProfissional, setFiltroProfissional] = useState<number | undefined>(undefined);
+  const [filtroProfissional, setFiltroProfissional] = useState<number | 'all'>('all');
   const [filtroData, setFiltroData] = useState<Date | undefined>(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
-  console.log(agendamentos)
+
   // Carrega lista de profissionais
   const loadProfissionais = useCallback(async () => {
     const db = await getDBConnection();
@@ -87,27 +87,28 @@ export default function ListaAgendamentosScreen({ navigation }: Props) {
       const dateISO = filtroData.toISOString().slice(0, 10);
       clauses.push(`a.data = '${dateISO}'`);
     }
-    if (filtroProfissional !== undefined) {
+    if (filtroProfissional !== 'all') {
       clauses.push(`a.profissional_id = ${filtroProfissional}`);
     }
 
+
     const where = clauses.length ? `WHERE ${clauses.join(' AND ')}` : '';
     const sql = `
-      SELECT 
+    SELECT 
       a.id,
       a.profissional_id,
-      p.nome   AS profissional_nome,
+      p.nome AS profissional_nome,
       a.servico_id,
-      s.nome   AS servico_nome,
+      s.nome AS servico_nome,
       a.cliente_nome,
       a.data,
       a.hora
-      FROM agendamentos a
-      JOIN profissionais p ON p.id = a.profissional_id
-      LEFT JOIN servicos     s ON a.servico_id       = s.id;
-      ${where}
-      ORDER BY a.hora ASC;
-    `;
+    FROM agendamentos a
+    JOIN profissionais p ON p.id = a.profissional_id
+    LEFT JOIN servicos s ON a.servico_id = s.id
+    ${where}
+    ORDER BY a.hora ASC;
+  `;
     const res = await db.executeSql(sql);
     const rows = res[0].rows;
     const list: Agendamento[] = [];
@@ -168,7 +169,7 @@ export default function ListaAgendamentosScreen({ navigation }: Props) {
         {/* Botão Limpar Filtros */}
         <TouchableOpacity
           style={GlobalStyles.clearButton}
-          onPress={() => { setFiltroProfissional(undefined); setFiltroData(undefined); }}
+          onPress={() => { setFiltroProfissional('all'); setFiltroData(undefined); }}
         >
           <Ionicons name="refresh-outline" size={20} color="#fff" />
           <Text style={GlobalStyles.TextButton}>Limpar</Text>
@@ -177,11 +178,11 @@ export default function ListaAgendamentosScreen({ navigation }: Props) {
 
       <View style={GlobalStyles.lineTop}>
         <View style={GlobalStyles.pickerContainer}>
-          <Picker          
+          <Picker
             selectedValue={filtroProfissional}
             onValueChange={v => setFiltroProfissional(v)}
           >
-            <Picker.Item label="Todos Profissionais" value={undefined} style={GlobalStyles.placeholder}/>
+            <Picker.Item label="Todos Profissionais" value={'all'} style={GlobalStyles.placeholder} />
             {profissionais.map(p => (
               <Picker.Item key={p.id} label={p.nome} value={p.id} style={GlobalStyles.placeholder} />
             ))}
@@ -220,8 +221,8 @@ export default function ListaAgendamentosScreen({ navigation }: Props) {
               <Text style={GlobalStyles.timeText}>{item.hora}</Text>
             </View>
             <View style={GlobalStyles.info}>
-              <Text style={GlobalStyles.textBold}>{item.cliente_nome}</Text>             
-               <Text>{item.profissional_nome}</Text>
+              <Text style={GlobalStyles.textBold}>{item.cliente_nome}</Text>
+              <Text>{item.profissional_nome}</Text>
               <Text><Text style={GlobalStyles.textBold}>Serviço: </Text>{item.servico_nome}</Text>
             </View>
             <TouchableOpacity onPress={() => confirmDelete(item.id)}>
