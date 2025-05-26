@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, Alert, TouchableOpacity } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/RootStackParams';
 import { getDBConnection } from '../database/DatabaseConnection';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { MaskedText } from 'react-native-mask-text';
+import { GlobalStyles } from '../styles/GlobalStyles';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ListaServicos'>;
 
@@ -17,7 +18,6 @@ export const getServicos = async () => {
     servicos.push(rows.item(i));
   }
 
-  console.log('Serviços cadastrados:', servicos);
   return servicos;
 }
 
@@ -55,8 +55,8 @@ export default function ListaServicosScreen({ navigation }: Props) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Servicos</Text>
+    <View style={GlobalStyles.container}>
+      <Text style={GlobalStyles.title}>Servicos</Text>
       <TouchableOpacity
         onPress={() =>
           navigation.navigate('CadastroServico', {
@@ -66,17 +66,17 @@ export default function ListaServicosScreen({ navigation }: Props) {
           })
         }
       >
-        <Text style={styles.link}>Cadastrar Serviço</Text>
+        <Text style={GlobalStyles.link}>Cadastrar Serviço</Text>
       </TouchableOpacity>
       <FlatList
         data={servicos}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.card}>
+          <View style={GlobalStyles.card}>
             <TouchableOpacity onPress={() => confirmDelete(item.id)}>
-              <Ionicons name="close" size={24} color="red" style={styles.deleteIcon} />
+              <Ionicons name="close" size={24} color="red" style={GlobalStyles.deleteIcon} />
             </TouchableOpacity>
-            <Text style={styles.text}>Nome: {item.nome}</Text>
+            <Text style={GlobalStyles.text}>Nome: {item.nome}</Text>
             <Text>Valor:&nbsp;
               <MaskedText type="currency"
                 options={{
@@ -91,45 +91,4 @@ export default function ListaServicosScreen({ navigation }: Props) {
       />
     </View>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 22,
-    marginBottom: 12,
-    fontWeight: 'bold',
-  },
-  card: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 10,
-    backgroundColor: '#f9f9f9',
-  },
-  text: {
-    width: '90%',
-    fontSize: 16,
-    marginBottom: 4,
-    color: '#333',
-  },
-  boldText: {
-    fontWeight: 'bold',
-    color: '#000',
-  },
-  link: {
-    color: '#7D5FFF',
-    textAlign: 'left',
-    textDecorationLine: 'underline',
-    paddingBottom: 8,
-  },
-  deleteIcon: {
-    position: 'absolute',
-    right: 0,
-  },
-});
+};

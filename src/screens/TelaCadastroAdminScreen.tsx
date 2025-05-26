@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { addUser } from '../database/UserService';
+import { GlobalStyles } from '../styles/GlobalStyles';
 
 type RootStackParamList = {
   Login: undefined;
@@ -40,14 +41,14 @@ export default function TelaCadastroAdmin() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Cadastro de Administrador</Text>
+    <View style={GlobalStyles.container}>
+      <Text style={GlobalStyles.title}>Cadastro de Administrador</Text>
 
       <TextInput
         placeholder="Nome"
         value={nome}
         onChangeText={setNome}
-        style={styles.input}
+        style={GlobalStyles.input}
       />
 
       <TextInput
@@ -55,7 +56,7 @@ export default function TelaCadastroAdmin() {
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
-        style={styles.input}
+        style={GlobalStyles.input}
       />
 
       <TextInput
@@ -63,7 +64,7 @@ export default function TelaCadastroAdmin() {
         value={senha}
         onChangeText={setSenha}
         secureTextEntry
-        style={styles.input}
+        style={GlobalStyles.input}
       />
 
       <TextInput
@@ -71,59 +72,21 @@ export default function TelaCadastroAdmin() {
         value={confirmarSenha}
         onChangeText={setConfirmarSenha}
         secureTextEntry
-        style={styles.input}
+        style={GlobalStyles.input}
       />
 
       <TouchableOpacity
-        style={styles.button}
+        style={GlobalStyles.button}
         onPress={handleCadastro}
       >
-        <Text style={styles.buttonText}>Cadastrar</Text>
+        <Text style={GlobalStyles.buttonText}>Cadastrar</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         onPress={() => navigation.goBack()}
       >
-        <Text style={styles.link}>Voltar para Login</Text>
+        <Text style={GlobalStyles.link}>Voltar para Login</Text>
       </TouchableOpacity>
     </View>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFF',
-    justifyContent: 'center',
-    padding: 20
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 30
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#CCC',
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 15
-  },
-  button: {
-    backgroundColor: '#7D5FFF',
-    padding: 15,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginBottom: 10
-  },
-  buttonText: {
-    color: '#FFF',
-    fontWeight: 'bold'
-  },
-  link: {
-    color: '#7D5FFF',
-    textAlign: 'center',
-    textDecorationLine: 'underline'
-  }
-});
+};

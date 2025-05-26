@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Alert, Text, StyleSheet } from 'react-native';
+import { View, TextInput, Button, Alert, Text } from 'react-native';
 import { addProfissional } from '../database/ProfissionalService';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/RootStackParams';
 import { MaskedTextInput } from "react-native-mask-text";
+import { GlobalStyles } from '../styles/GlobalStyles';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CadastroProfissional'>;
 
@@ -36,42 +37,30 @@ export default function CadastroProfissionalScreen({ route, navigation }: Props)
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Cadastro de Profissional</Text>
+    <View style={GlobalStyles.container}>
+      <Text style={GlobalStyles.title}>Cadastro de Profissional</Text>
 
       <TextInput
         placeholder="Nome"
         value={nome}
         onChangeText={setNome}
-        style={styles.input}
+        style={GlobalStyles.input}
       />
       <MaskedTextInput
         placeholder="Telefone"
         mask="(99) 99999-9999"
         onChangeText={(text, rawText) => setTelefone(rawText)}
         value={telefone}
-        style={styles.input}
+        style={GlobalStyles.input}
       />
       <TextInput
         placeholder="Especialidade"
         value={especialidade}
         onChangeText={setEspecialidade}
-        style={styles.input}
+        style={GlobalStyles.input}
       />
 
       <Button title="Salvar" onPress={handleSave} />
     </View>
   );
-}
-
-const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', padding: 20 },
-  title: { fontSize: 24, textAlign: 'center', marginBottom: 20 },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 10,
-  },
-});
+};

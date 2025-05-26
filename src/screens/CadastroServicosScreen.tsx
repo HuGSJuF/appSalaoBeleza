@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Alert, Text, StyleSheet } from 'react-native';
+import { View, TextInput, Button, Alert, Text } from 'react-native';
 import { addServico } from '../database/ServicosService';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/RootStackParams';
 import { MaskedTextInput } from 'react-native-mask-text';
+import { GlobalStyles } from '../styles/GlobalStyles';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CadastroServico'>;
 
@@ -34,14 +35,14 @@ export default function CadastroServicosScreen({ route, navigation }: Props) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Cadastro de Serviço</Text>
+    <View style={GlobalStyles.container}>
+      <Text style={GlobalStyles.title}>Cadastro de Serviço</Text>
 
       <TextInput
         placeholder="Nome do Serviço"
         value={nome}
         onChangeText={setNome}
-        style={styles.input}
+        style={GlobalStyles.input}
       />
 
       <MaskedTextInput
@@ -53,23 +54,11 @@ export default function CadastroServicosScreen({ route, navigation }: Props) {
           precision: 2
         }}
         onChangeText={setPreco}
-        style={styles.input}
+        style={GlobalStyles.input}
         keyboardType="numeric"
       />
 
       <Button title="Salvar" onPress={handleSave} />
     </View>
   );
-}
-
-const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', padding: 20 },
-  title: { fontSize: 24, textAlign: 'center', marginBottom: 20 },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 10,
-  },
-});
+};

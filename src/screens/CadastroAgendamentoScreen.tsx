@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Button, Alert, StyleSheet, Platform, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Button, Alert, Platform, TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/RootStackParams';
@@ -8,6 +8,7 @@ import { addAgendamento, Agendamento } from '../database/AgendamentoService';
 import { Picker } from '@react-native-picker/picker';
 import { Servico } from '../database/ServicosService';
 import { getServicos } from './ListaServicosScreen';
+import { GlobalStyles } from '../styles/GlobalStyles';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CadastroAgendamento'>;
 
@@ -77,11 +78,11 @@ export default function CadastroAgendamentoScreen({ navigation }: Props) {
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Novo Agendamento</Text>
+        <View style={GlobalStyles.container}>
+            <Text style={GlobalStyles.title}>Novo Agendamento</Text>
 
-            <Text style={styles.label}>Profissional</Text>
-            <View style={styles.pickerContainer}>
+            <Text style={GlobalStyles.label}>Profissional</Text>
+            <View style={GlobalStyles.pickerContainer}>
                 <Picker
                     selectedValue={profissionalId}
                     onValueChange={setProfissionalId}
@@ -93,8 +94,8 @@ export default function CadastroAgendamentoScreen({ navigation }: Props) {
                 </Picker>
             </View>
 
-            <Text style={styles.label}>Serviço</Text>
-            <View style={styles.pickerContainer}>
+            <Text style={GlobalStyles.label}>Serviço</Text>
+            <View style={GlobalStyles.pickerContainer}>
                 <Picker selectedValue={servicoId} onValueChange={setServicoId}>
                     <Picker.Item label="Selecione..." value={undefined} />
                     {servicos.map(s => (
@@ -104,23 +105,23 @@ export default function CadastroAgendamentoScreen({ navigation }: Props) {
             </View>
 
 
-            <Text style={styles.label}>Nome do Cliente</Text>
+            <Text style={GlobalStyles.label}>Nome do Cliente</Text>
             <TextInput
-                style={styles.input}
+                style={GlobalStyles.input}
                 placeholder="Ex: Ana Souza"
                 value={cliente}
                 onChangeText={setCliente}
             />
 
-            <Text style={styles.label}>Data</Text>
-            <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styles.input}>
+            <Text style={GlobalStyles.label}>Data</Text>
+            <TouchableOpacity onPress={() => setShowDatePicker(true)} style={GlobalStyles.input}>
                 <Text>{`${data.getDate().toString().padStart(2, '0')}/` +
                     `${(data.getMonth() + 1).toString().padStart(2, '0')}/` +
                     `${data.getFullYear()}`}</Text>
             </TouchableOpacity>
 
-            <Text style={styles.label}>Hora</Text>
-            <TouchableOpacity onPress={() => setShowTimePicker(true)} style={styles.input}>
+            <Text style={GlobalStyles.label}>Hora</Text>
+            <TouchableOpacity onPress={() => setShowTimePicker(true)} style={GlobalStyles.input}>
                 <Text>{`${hora.getHours().toString().padStart(2, '0')}:` +
                     `${hora.getMinutes().toString().padStart(2, '0')}`}</Text>
             </TouchableOpacity>
@@ -145,30 +146,9 @@ export default function CadastroAgendamentoScreen({ navigation }: Props) {
                 />
             )}
 
-            <View style={styles.button}>
+            <View style={GlobalStyles.button}>
                 <Button title="Salvar Agendamento" onPress={handleSave} />
             </View>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: { flex: 1, padding: 16, backgroundColor: '#fff' },
-    title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, textAlign: 'center' },
-    label: { fontSize: 16, marginTop: 12 },
-    pickerContainer: {
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 8,
-        overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
-        marginBottom: 8
-    },
-    input: {
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 8,
-        padding: 12,
-        marginBottom: 8
-    },
-    button: { marginTop: 20, borderRadius: 8, overflow: 'hidden' }
-});

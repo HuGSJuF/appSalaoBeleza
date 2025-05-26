@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput,TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import { View, Text, TextInput,TouchableOpacity, Alert } from 'react-native';
 import { loginUser } from '../database/UserService';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/RootStackParams';
 import { getDBConnection } from '../database/DatabaseConnection';
+import { GlobalStyles } from '../styles/GlobalStyles';
 
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
@@ -42,73 +43,35 @@ export default function LoginScreen({ navigation }: Props) {
 
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Salão Vanessa Santos</Text>
+    <View style={GlobalStyles.container}>
+      <Text style={GlobalStyles.title}>Salão Vanessa Santos</Text>
 
       <TextInput
         placeholder="E-mail"
         value={email}
         onChangeText={setEmail}
-        style={styles.input}
+        style={GlobalStyles.input}
       />
       <TextInput
         placeholder="Senha"
         value={senha}
         onChangeText={setSenha}
         secureTextEntry
-        style={styles.input}
+        style={GlobalStyles.input}
       />
 
       <TouchableOpacity
-        style={styles.button}
+        style={GlobalStyles.button}
         onPress={handleLogin}
       >
-        <Text style={styles.buttonText}>Entrar</Text>
+        <Text style={GlobalStyles.buttonText}>Entrar</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         onPress={() => navigation.navigate('CadastroAdmin')}
       >
-        <Text style={styles.link}>Cadastrar Admin</Text>
+        <Text style={GlobalStyles.link}>Cadastrar Admin</Text>
       </TouchableOpacity>
     </View>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFF',
-    justifyContent: 'center',
-    padding: 20
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 30
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#CCC',
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 15
-  },
-  button: {
-    backgroundColor: '#7D5FFF',
-    padding: 15,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginBottom: 10
-  },
-  buttonText: {
-    color: '#FFF',
-    fontWeight: 'bold'
-  },
-  link: {
-    color: '#7D5FFF',
-    textAlign: 'center',
-    textDecorationLine: 'underline'
-  }
-});
+};
