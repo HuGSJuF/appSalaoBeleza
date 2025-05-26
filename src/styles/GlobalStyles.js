@@ -1,4 +1,6 @@
 
+import { StyleSheet } from 'react-native';
+
 export const colors = {
     primary: '#9b59b6',
     background: '#fff',
@@ -19,9 +21,30 @@ export const GlobalStyles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: 30
     },
+    titleList: {
+        fontSize: 22,
+        marginBottom: 12,
+        fontWeight: 'bold',
+    },
     label: {
         fontSize: 16,
         marginTop: 12
+    },
+    labelPlace: {
+        fontSize: 16,
+        fontWeight: '400',
+        color: '#929292',
+        marginRight: 5,
+    },
+    text: {
+        width: '90%',
+        fontSize: 16,
+        marginBottom: 4,
+        color: '#333',
+    },
+    textBold: {
+        fontWeight: 'bold',
+        fontSize: 16
     },
     input: {
         borderWidth: 1,
@@ -29,10 +52,25 @@ export const GlobalStyles = StyleSheet.create({
         borderRadius: 8,
         padding: 10,
         marginBottom: 15,
-        color: colors.text, // cor do texto digitado
+        color: colors.text,
+    },
+    inputPlace: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 8,
+        paddingVertical: 12,
+        paddingHorizontal: 16,
+        marginBottom: 16,
+        justifyContent: 'flex-start',
+    },
+    value: {
+        fontSize: 16,
+        color: '#333',
     },
     button: {
-        backgroundColor: '#7D5FFF',
+        backgroundColor: '#7D3C98',
         padding: 15,
         borderRadius: 8,
         alignItems: 'center',
@@ -43,9 +81,15 @@ export const GlobalStyles = StyleSheet.create({
         fontWeight: 'bold'
     },
     link: {
-        color: '#7D5FFF',
+        color: '#7D3C98',
         textAlign: 'center',
         textDecorationLine: 'underline'
+    },
+    linkLsit: {
+        color: '#7D3C98',
+        textAlign: 'left',
+        textDecorationLine: 'underline',
+        paddingBottom: 8,
     },
     boldText: {
         fontWeight: 'bold',
@@ -59,9 +103,19 @@ export const GlobalStyles = StyleSheet.create({
         marginBottom: 10,
         backgroundColor: '#f9f9f9',
     },
+    cardAg: {
+        flexDirection: 'row',
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 8,
+        marginBottom: 8,
+        overflow: 'hidden',
+    },
     deleteIcon: {
         position: 'absolute',
         right: 0,
+        marginRight: 8,
+        marginTop: 8
     },
     menuContainer: {
         flexDirection: 'row',
@@ -91,14 +145,30 @@ export const GlobalStyles = StyleSheet.create({
         textAlign: 'center',
     },
     pickerContainer: {
-        flex: 1, borderWidth: 1, borderColor: '#ccc',
-        borderRadius: 8, marginRight: 8,
+        flex: 1,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 8,
+        marginRight: 8,
         overflow: Platform.OS === 'android' ? 'hidden' : 'visible'
     },
+    pickerContainerAg: {
+        flex: 0,
+        width: '100%',
+        marginBottom: 15,
+    },
+    placeholder: {
+        color: 'gray', // Custom color for the placeholder
+    },
     dateButton: {
-        flexDirection: 'row', alignItems: 'center',
-        borderWidth: 1, borderColor: '#ccc', borderRadius: 8,
-        paddingHorizontal: 12, paddingVertical: 8
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 8,
+        paddingHorizontal: 12,
+        paddingVertical: 8,
+        height: 55,
     },
     dateText: {
         marginLeft: 6
@@ -132,6 +202,20 @@ export const GlobalStyles = StyleSheet.create({
         color: '#fff',
         marginLeft: 6,
         fontWeight: 'bold'
+    },
+    timeMarker: {
+        width: 60,
+        backgroundColor: '#7D3C98',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    timeText: {
+        color: '#fff',
+        fontWeight: 'bold'
+    },
+    info: {
+        flex: 1,
+        padding: 8
     },
 
 });

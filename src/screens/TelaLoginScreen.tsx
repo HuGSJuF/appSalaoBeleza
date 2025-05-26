@@ -48,12 +48,14 @@ export default function LoginScreen({ navigation }: Props) {
 
       <TextInput
         placeholder="E-mail"
+        placeholderTextColor="gray"
         value={email}
         onChangeText={setEmail}
         style={GlobalStyles.input}
       />
       <TextInput
         placeholder="Senha"
+        placeholderTextColor="gray"
         value={senha}
         onChangeText={setSenha}
         secureTextEntry

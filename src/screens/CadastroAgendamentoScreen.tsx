@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Button, Alert, Platform, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Alert, Platform, TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/RootStackParams';
@@ -81,48 +81,45 @@ export default function CadastroAgendamentoScreen({ navigation }: Props) {
         <View style={GlobalStyles.container}>
             <Text style={GlobalStyles.title}>Novo Agendamento</Text>
 
-            <Text style={GlobalStyles.label}>Profissional</Text>
-            <View style={GlobalStyles.pickerContainer}>
+            <View style={[GlobalStyles.pickerContainer, GlobalStyles.pickerContainerAg]}>
                 <Picker
                     selectedValue={profissionalId}
                     onValueChange={setProfissionalId}
                 >
-                    <Picker.Item label="Selecione..." value={undefined} />
+                    <Picker.Item label="Selecione o profissional..." value={undefined} style={GlobalStyles.placeholder}  />
                     {profissionais.map(p => (
-                        <Picker.Item key={p.id} label={p.nome} value={p.id} />
+                        <Picker.Item key={p.id} label={p.nome} value={p.id} style={GlobalStyles.placeholder}  />
                     ))}
                 </Picker>
             </View>
 
-            <Text style={GlobalStyles.label}>Serviço</Text>
-            <View style={GlobalStyles.pickerContainer}>
+            <View style={[GlobalStyles.pickerContainer, GlobalStyles.pickerContainerAg]}>
                 <Picker selectedValue={servicoId} onValueChange={setServicoId}>
-                    <Picker.Item label="Selecione..." value={undefined} />
+                    <Picker.Item label="Selecione o serviço..." value={undefined} style={GlobalStyles.placeholder}  />
                     {servicos.map(s => (
-                        <Picker.Item key={s.id} label={s.nome} value={s.id} />
+                        <Picker.Item key={s.id} label={s.nome} value={s.id} style={GlobalStyles.placeholder}  />
                     ))}
                 </Picker>
             </View>
 
-
-            <Text style={GlobalStyles.label}>Nome do Cliente</Text>
             <TextInput
                 style={GlobalStyles.input}
                 placeholder="Ex: Ana Souza"
+                placeholderTextColor="gray"
                 value={cliente}
                 onChangeText={setCliente}
             />
 
-            <Text style={GlobalStyles.label}>Data</Text>
-            <TouchableOpacity onPress={() => setShowDatePicker(true)} style={GlobalStyles.input}>
-                <Text>{`${data.getDate().toString().padStart(2, '0')}/` +
+            <TouchableOpacity onPress={() => setShowDatePicker(true)} style={GlobalStyles.inputPlace}>
+                <Text style={GlobalStyles.labelPlace}>Data:</Text>
+                <Text style={GlobalStyles.value}>{`${data.getDate().toString().padStart(2, '0')}/` +
                     `${(data.getMonth() + 1).toString().padStart(2, '0')}/` +
                     `${data.getFullYear()}`}</Text>
             </TouchableOpacity>
 
-            <Text style={GlobalStyles.label}>Hora</Text>
-            <TouchableOpacity onPress={() => setShowTimePicker(true)} style={GlobalStyles.input}>
-                <Text>{`${hora.getHours().toString().padStart(2, '0')}:` +
+            <TouchableOpacity onPress={() => setShowTimePicker(true)} style={GlobalStyles.inputPlace}>
+                <Text style={GlobalStyles.labelPlace}>Hora:</Text>
+                <Text style={GlobalStyles.value}>{`${hora.getHours().toString().padStart(2, '0')}:` +
                     `${hora.getMinutes().toString().padStart(2, '0')}`}</Text>
             </TouchableOpacity>
 
@@ -141,14 +138,19 @@ export default function CadastroAgendamentoScreen({ navigation }: Props) {
                     mode="time"
                     display={Platform.OS === 'ios' ? 'spinner' : 'clock'}
                     locale="pt-BR"
-                    is24Hour={true}  
+                    is24Hour={true}
                     onChange={onChangeTime}
                 />
             )}
 
-            <View style={GlobalStyles.button}>
-                <Button title="Salvar Agendamento" onPress={handleSave} />
-            </View>
+            <TouchableOpacity
+                style={GlobalStyles.button}
+                onPress={handleSave}
+            >
+                <Text style={GlobalStyles.buttonText}>Salvar Agendamento</Text>
+            </TouchableOpacity>
         </View>
     );
 }
+
+

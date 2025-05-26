@@ -46,6 +46,7 @@ export default function TelaCadastroAdmin() {
 
       <TextInput
         placeholder="Nome"
+        placeholderTextColor="gray"
         value={nome}
         onChangeText={setNome}
         style={GlobalStyles.input}
@@ -53,6 +54,7 @@ export default function TelaCadastroAdmin() {
 
       <TextInput
         placeholder="E-mail"
+        placeholderTextColor="gray"
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
@@ -61,6 +63,7 @@ export default function TelaCadastroAdmin() {
 
       <TextInput
         placeholder="Senha"
+        placeholderTextColor="gray"
         value={senha}
         onChangeText={setSenha}
         secureTextEntry
@@ -69,6 +72,7 @@ export default function TelaCadastroAdmin() {
 
       <TextInput
         placeholder="Confirmar Senha"
+        placeholderTextColor="gray"
         value={confirmarSenha}
         onChangeText={setConfirmarSenha}
         secureTextEntry

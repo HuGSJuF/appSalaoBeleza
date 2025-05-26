@@ -56,7 +56,7 @@ export default function ListaServicosScreen({ navigation }: Props) {
 
   return (
     <View style={GlobalStyles.container}>
-      <Text style={GlobalStyles.title}>Servicos</Text>
+      <Text style={GlobalStyles.titleList}>Servicos</Text>
       <TouchableOpacity
         onPress={() =>
           navigation.navigate('CadastroServico', {
@@ -66,7 +66,7 @@ export default function ListaServicosScreen({ navigation }: Props) {
           })
         }
       >
-        <Text style={GlobalStyles.link}>Cadastrar Serviço</Text>
+        <Text style={GlobalStyles.linkLsit}>Cadastrar Serviço</Text>
       </TouchableOpacity>
       <FlatList
         data={servicos}

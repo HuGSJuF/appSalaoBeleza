@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/RootStackParams';
 import { getDBConnection } from '../database/DatabaseConnection';
@@ -71,7 +71,7 @@ export default function ListaProfissionaisScreen({ navigation }: Props) {
 
     return (
         <View style={GlobalStyles.container}>
-            <Text style={GlobalStyles.title}>Profissionais</Text>
+            <Text style={GlobalStyles.titleList}>Profissionais</Text>
             <TouchableOpacity
                 onPress={() =>
                     navigation.navigate('CadastroProfissional', {
@@ -82,7 +82,7 @@ export default function ListaProfissionaisScreen({ navigation }: Props) {
                     })
                 }
             >
-                <Text style={GlobalStyles.link}>Cadastrar Profissional</Text>
+                <Text style={GlobalStyles.linkLsit}>Cadastrar Profissional</Text>
             </TouchableOpacity>
             <FlatList
                 data={profissionais}
@@ -109,4 +109,4 @@ export default function ListaProfissionaisScreen({ navigation }: Props) {
             />
         </View>
     );
-};
+}

@@ -27,7 +27,11 @@ export default function App() {
   }, []);
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Login"
+        screenOptions={{
+          headerStyle: { backgroundColor: '#7D3C98' }, 
+          headerTintColor: '#fff', 
+        }}>
         <Stack.Screen name="Login" component={TelaLogin} options={{ headerShown: false }} />
         <Stack.Screen name="Home" component={TelaPrincipal} options={{ title: 'Tela Principal' }} />
         <Stack.Screen name="CadastroProfissional" component={CadastroProfissional} options={{ title: 'Cadastro de Profissional' }} />

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Alert, Platform } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Alert, Platform } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/RootStackParams';
 import { getDBConnection } from '../database/DatabaseConnection';
@@ -151,7 +151,7 @@ export default function ListaAgendamentosScreen({ navigation }: Props) {
 
   return (
     <View style={GlobalStyles.container}>
-      <Text style={GlobalStyles.title}>Agendamentos</Text>
+      <Text style={GlobalStyles.titleList}>Agendamentos</Text>
 
       <View style={GlobalStyles.lineTop}>
         {/* Botão add  */}
@@ -177,13 +177,13 @@ export default function ListaAgendamentosScreen({ navigation }: Props) {
 
       <View style={GlobalStyles.lineTop}>
         <View style={GlobalStyles.pickerContainer}>
-          <Picker
+          <Picker          
             selectedValue={filtroProfissional}
             onValueChange={v => setFiltroProfissional(v)}
           >
-            <Picker.Item label="Todos Profissionais" value={undefined} />
+            <Picker.Item label="Todos Profissionais" value={undefined} style={GlobalStyles.placeholder}/>
             {profissionais.map(p => (
-              <Picker.Item key={p.id} label={p.nome} value={p.id} />
+              <Picker.Item key={p.id} label={p.nome} value={p.id} style={GlobalStyles.placeholder} />
             ))}
           </Picker>
         </View>
@@ -214,7 +214,7 @@ export default function ListaAgendamentosScreen({ navigation }: Props) {
         data={agendamentos}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={GlobalStyles.card}>
+          <View style={GlobalStyles.cardAg}>
             <View style={GlobalStyles.timeMarker}>
               <MaskedText mask="99/99" style={GlobalStyles.timeText}>{extractDayMonth(item.data)}</MaskedText >
               <Text style={GlobalStyles.timeText}>{item.hora}</Text>
@@ -233,4 +233,4 @@ export default function ListaAgendamentosScreen({ navigation }: Props) {
       />
     </View>
   );
-};
+}

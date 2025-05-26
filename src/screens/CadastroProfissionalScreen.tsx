@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Alert, Text } from 'react-native';
+import { View, TextInput, Button, Alert, Text, TouchableOpacity } from 'react-native';
 import { addProfissional } from '../database/ProfissionalService';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/RootStackParams';
@@ -42,12 +42,14 @@ export default function CadastroProfissionalScreen({ route, navigation }: Props)
 
       <TextInput
         placeholder="Nome"
+        placeholderTextColor="gray"
         value={nome}
         onChangeText={setNome}
         style={GlobalStyles.input}
       />
       <MaskedTextInput
         placeholder="Telefone"
+        placeholderTextColor="gray"
         mask="(99) 99999-9999"
         onChangeText={(text, rawText) => setTelefone(rawText)}
         value={telefone}
@@ -55,12 +57,19 @@ export default function CadastroProfissionalScreen({ route, navigation }: Props)
       />
       <TextInput
         placeholder="Especialidade"
+        placeholderTextColor="gray"
         value={especialidade}
         onChangeText={setEspecialidade}
         style={GlobalStyles.input}
       />
 
-      <Button title="Salvar" onPress={handleSave} />
+      <TouchableOpacity
+        style={GlobalStyles.button}
+        onPress={handleSave}
+      >
+        <Text style={GlobalStyles.buttonText}>Salvar</Text>
+      </TouchableOpacity>
+      
     </View>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Alert, Text } from 'react-native';
+import { View, TextInput, Button, Alert, Text, TouchableOpacity } from 'react-native';
 import { addServico } from '../database/ServicosService';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/RootStackParams';
@@ -14,8 +14,8 @@ export default function CadastroServicosScreen({ route, navigation }: Props) {
 
 
   const handleSave = async () => {
-    const precoNumber = Number(preco.replace(/\D/g, '')) / 100;   
- 
+    const precoNumber = Number(preco.replace(/\D/g, '')) / 100;
+
     if (!nome.trim() || (precoNumber === 0)) {
       Alert.alert('Erro', 'Preencha todos os campos');
       return;
@@ -40,6 +40,7 @@ export default function CadastroServicosScreen({ route, navigation }: Props) {
 
       <TextInput
         placeholder="Nome do Serviço"
+        placeholderTextColor="gray"
         value={nome}
         onChangeText={setNome}
         style={GlobalStyles.input}
@@ -58,7 +59,12 @@ export default function CadastroServicosScreen({ route, navigation }: Props) {
         keyboardType="numeric"
       />
 
-      <Button title="Salvar" onPress={handleSave} />
+      <TouchableOpacity
+        style={GlobalStyles.button}
+        onPress={handleSave}
+      >
+        <Text style={GlobalStyles.buttonText}>Salvar</Text>
+      </TouchableOpacity>
     </View>
   );
 };
